@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="copyright" content="&copy; 2017 Chatbot School" />
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/botui/build/botui.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/botui/build/botui-theme-default.css">
+    <link rel="stylesheet" href="style.css">
+    <title>ISG Chatbot</title>
+</head>
+
+<body>
+    <div class="info">
+        <div class="log">
+            <img src="logo.png" alt="">
+        </div>
+        <div class="content">
+            <div class="header">
+                <h1>ISG WEBSITE CHATBOT FOR ADMISSION OF CHILDREN</h1>
+            </div>
+            <div class="content-body">
+                Indian School Al Ghubra- Chatbot made by Sabyasachi, Kabir, Sanjana.
+            </div>
+        </div>
+        <br/>
+        <br/>
+
+
+        <div class="footer">
+            <div id="footer" xmlns:dc="http://purl.org/dc/elements/1.1/">
+                  
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="chatbot">
+        <div id="botui-app">
+            <bot-ui></bot-ui>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+    <script src="https://unpkg.com/botui/build/botui.min.js"></script>
+
+    <script>
+        var botui = new BotUI('botui-app');
+        let name, email;
+
+        botui.message.bot({ delay: 200, content: 'Hi there!' })
+            .then(() => botui.message.bot({ delay: 1000, content: 'Welcome to ISG website!' }))
+            .then(() => botui.message.bot({ delay: 2000, content: 'How are you doing today?' }))
+            .then(() => botui.action.button({ delay: 1000, action: [{ text: '🙂 Good', value: 'good' }, { text: '😄 Really Good', value: 'really_good' }] })
+                .then((res) => botui.message.bot({ delay: 1000, content: 'You are feeling ' + res.text + '!' })))
+.then(() => botui.message.bot({ delay: 2000, content:'How can I help you today?' }))
+.then(() => botui.action.button({ delay: 1000, action: [{ text: 'Admission', value: 'admission' }, { text: 'Academic', value: 'Academic' }] })
+                .then((res) => botui.message.bot({ delay: 1000, content: 'You need  help related to ' + res.text + '!' })))
+
+				.then(() => botui.message.bot({ delay: 1000, content: 'We will contact you as soon as possible. Please give your email id?' }))
+				.then(() => botui.action.button({ delay: 1000, action: [{ text: 'Yes', value: 'yes' }, { text: 'No', value: 'no' }] }))
+            .then(res => res.value === 'yes' ? botui.message.bot({ delay: 1000, content: 'What should I call you?' }) : Promis.reject())
+            .then(() => botui.action.text({ delay: 1000, action: { value: name, placeholder: 'John Doe', cssClass: 'txtName' } }))
+
+			.then(() => botui.message.bot({ delay: 1000, content: 'May I have your email address so that I can inform your childs admission?' }))
+            .then(() => botui.action.text({ delay: 1000, action: { value: email, placeholder: 'John.Doe@email.com', cssClass: 'txtName' } }))
+            .then(res => res.value)
+            .then(email => { console.log(`name: ${name}, email: ${email}`); return email; })
+            .then(emailAddress => botui.message.bot({ delay: 1000, content: `Your email address: ${emailAddress}` }))
+
+
+           
+            
+            .then(() => Promise.reject())
+           .catch(() => botui.message.bot({ delay: 1000, content: 'Thank you! It was a pleasure chatting with you. Hope to see you soon 👀.' }))
+   
+    </script>
+
+</body>
+
+</html>
